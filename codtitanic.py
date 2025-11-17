@@ -108,5 +108,7 @@ df_filtrado = df.copy()
 df_filtrado = df_filtrado[
     df_filtrado["Age"].between(rango_edad[0], rango_edad[1]) &
     (df_filtrado["Fare"] <= max_fare)
+]
+
 
 
