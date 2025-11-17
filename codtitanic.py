@@ -77,7 +77,7 @@ st.write("Usamos el archivo **database_titanic.csv**")
 
 # ======================
 # SIDEBAR  → filtros
-# ====================== sidebar conteiner, columna expander 
+# ====================== 
 with st.sidebar:
     st.header("Filtros")
 
@@ -92,6 +92,21 @@ with st.sidebar:
         value=(max(edad_min, 10), min(edad_max, 50))
     )
 
+ # Filtro de tarifa
+    fare_min = float(df["Fare"].min())
+    fare_max = float(df["Fare"].max())
 
+    max_fare = st.slider(
+        "Fare máximo",
+        min_value=fare_min,
+        max_value=fare_max,
+        value=float(np.percentile(df["Fare"], 75))
+    )
+
+# Aplicamos filtros del sidebar a una copia
+df_filtrado = df.copy()
+df_filtrado = df_filtrado[
+    df_filtrado["Age"].between(rango_edad[0], rango_edad[1]) &
+    (df_filtrado["Fare"] <= max_fare)
 
 
