@@ -59,8 +59,8 @@ st.pyplot(fig2)
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.header("A cat")
-    st.image("https://static.streamlit.io/examples/cat.jpg")
+    st.header("Titanic")
+    st.image("https://www.google.com/search?sca_esv=63c7fd65582f6674&udm=2&fbs=AIIjpHx4nJjfGojPVHhEACUHPiMQht6_BFq6vBIoFFRK7qchKBv8IM7dq8CEqHDU3BN7lblo0LLC9Cn6mkAPuJ2pf_5AB2jIEfeNRohPjG4KBYb9QkOav8MLs-s9HjHiogY-yiT5ytN9csZargYYZzccKGyxJX0ufHevAfIzaWVapNVPp3UC4Nbvf8dSUojL5vLv0NqZlpuYv5q3yl14FsidoP_RyQfDAg&q=titanic&sa=X&ved=2ahUKEwiN667c6vmQAxV4I7kGHUoWKPkQtKgLegQIExAB&biw=1920&bih=945&dpr=1#vhid=0RsQPX6MYwfdrM&vssid=mosaic")
 
 with col2:
     st.header("A dog")
