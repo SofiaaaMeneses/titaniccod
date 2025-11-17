@@ -51,7 +51,7 @@ survivors_by_sex = df.groupby("Sex")["Survived"].sum()
 with st.sidebar:
   st.write("# Opciones")
 
-  div = st.slider("Número de bins:", 0, 10, 2)
+  div = st.slider("Número de bins:", 1, 10, 2)
 
   st.write("Bins", div)
   
