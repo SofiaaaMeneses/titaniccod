@@ -38,3 +38,31 @@ st.write("""
 """)
 
 st.table(df.head())
+
+
+st.write("""
+## Número de sobrevivientes agrupados por sexo
+""")
+
+with st.sidebar:
+  st.write("# Opciones")
+
+  div = st.slider("Número de bins:", 0, 10, 2)
+
+  st.write("Bins", div)
+
+fig, ax = plt.subplots(1, 2, figsize=(10, 3))
+ax[0].hist(df["Sex"], bins=div)
+ax[0].set_xlabel("Sex")
+ax[0].set_ylabel("Frecuencia")
+ax[0].set_title("Histograma de edades")
+
+df_male = df[df["Sex"] == "male"]
+cant_male = len(df_male)
+
+df_female = df[df["Sex"] == "female"]
+cant_female = len(df_female)
+
+ax[1].bar(["Masculino", "Femenino"], [cant_male, cant_female], color = "pink")
+
+st.pyplot(fig)
