@@ -46,6 +46,15 @@ st.write("## Sobrevivientes por sexo")
 
 survivors_by_sex = df.groupby("Sex")["Survived"].sum()
 
+#Slider Bar
+
+with st.sidebar:
+  st.write("# Opciones")
+
+  div = st.slider("Número de bins:", 0, 10, 2)
+
+  st.write("Bins", div)
+  
 #Gráfico
 
 fig2, ax2 = plt.subplots(figsize=(8,3))
