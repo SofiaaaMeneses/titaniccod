@@ -1,13 +1,13 @@
 
 import streamlit as st
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 df = pd.read_csv("database_titanic.csv")
 
 st.write("""
 # Mi primera aplicación interactiva
-## Gráficos uando la base de datos del Titanic
+## Gráficos usando la base de datos del Titanic
 """)
 
 with st.sidebar:
@@ -17,11 +17,11 @@ with st.sidebar:
 
   st.write("Bins", div)
 
-fg, ax = plt.subplots(1, 2, figsize=(10, 3))
+fig, ax = plt.subplots(1, 2, figsize=(10, 3))
 ax[0].hist(df["Age"], bins=div)
 ax[0].set_xlabel("Edad")
 ax[0].set_ylabel("Frecuencia")
-ax[0].set_tittle("Histograma de edades")
+ax[0].set_title("Histograma de edades")
 
 df_male = df[df["Sex"] == "male"]
 cant_male = len(df_male)
@@ -29,7 +29,7 @@ cant_male = len(df_male)
 df_female = df[df["Sex"] == "female"]
 cant_female = len(df_female)
 
-ax[1].bar(["Masculino", "Femenino"], [cant_male], [cant_female], color = "pink")
+ax[1].bar(["Masculino", "Femenino"], [cant_male, cant_female], color = "pink")
 
 st.pyplot(fig)
 
