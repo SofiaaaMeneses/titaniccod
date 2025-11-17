@@ -58,26 +58,39 @@ st.pyplot(fig2)
 
 
 
-with st.container():
-    st.subheader("Resumen de datos filtrados")
+st.set_page_config(
+    page_title="Ejercicio simple Titanic",
+    layout="wide"
+)
 
-    col_a, col_b, col_c = st.columns(3)
+st.title("Ejercicio de layouts en Streamlit")
 
-    with col_a:
-        st.metric("Pasajeros filtrados", len(df_filtrado))
 
-    with col_b:
-        if "Survived" in df_filtrado.columns and len(df_filtrado) > 0:
-            tasa = df_filtrado["Survived"].mean() * 100
-            st.metric("Supervivencia", f"{tasa:.1f} %")
-        else:
-            st.metric("Supervivencia", "N A")
+@st.cache_data
+def cargar_datos():
+    return pd.read_csv("database_titanic.csv")
 
-    with col_c:
-        if len(df_filtrado) > 0:
-            st.metric("Fare promedio", f"{df_filtrado['Fare'].mean():.2f}")
-        else:
-            st.metric("Fare promedio", "N A")
+
+df = cargar_datos()
+
+st.write("Usamos el archivo **database_titanic.csv**")
+
+# ======================
+# SIDEBAR  → filtros
+# ====================== sidebar conteiner, columna expander 
+with st.sidebar:
+    st.header("Filtros")
+
+    # Filtro de edad
+    edad_min = int(df["Age"].min(skipna=True)) if df["Age"].notna().any() else 0
+    edad_max = int(df["Age"].max(skipna=True)) if df["Age"].notna().any() else 80
+
+    rango_edad = st.slider(
+        "Rango de Edad",
+        min_value=edad_min,
+        max_value=edad_max,
+        value=(max(edad_min, 10), min(edad_max, 50))
+    )
 
 
 
