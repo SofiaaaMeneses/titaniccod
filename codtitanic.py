@@ -40,29 +40,18 @@ st.write("""
 st.table(df.head())
 
 
-st.write("""
-## Número de sobrevivientes agrupados por sexo
-""")
+#Agrupación de Survive por sexo
 
-with st.sidebar:
-  st.write("# Opciones")
+st.write("## Sobrevivientes por sexo")
 
-  div = st.slider("Número de bins:", 0, 10, 2)
+survivors_by_sex = df.groupby("Sex")["Survived"].sum()
 
-  st.write("Bins", div)
+#Gráfico
 
-fig, ax = plt.subplots(1, 2, figsize=(10, 3))
-ax[0].hist(df["Sex"], bins=div)
-ax[0].set_xlabel("Sex")
-ax[0].set_ylabel("Frecuencia")
-ax[0].set_title("Histograma de edades")
+fig2, ax2 = plt.subplots(figsize=(8,3))
+ax2.bar(["Masculino", "Femenino"], survivors_by_sex, color=["blue", "pink"])
+ax2.set_title("Sobrevivientes por sexo") # eje x
+ax2.set_ylabel("Cantidad") # eje y
+st.pyplot(fig2)
 
-df_male = df[df["Sex"] == "male"]
-cant_male = len(df_male)
 
-df_female = df[df["Sex"] == "female"]
-cant_female = len(df_female)
-
-ax[1].bar(["Masculino", "Femenino"], [cant_male, cant_female], color = "pink")
-
-st.pyplot(fig)
