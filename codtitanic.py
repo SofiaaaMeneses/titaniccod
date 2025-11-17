@@ -56,16 +56,59 @@ ax2.set_title("Sobrevivientes por sexo") # eje x
 ax2.set_ylabel("Cantidad") # eje y
 st.pyplot(fig2)
 
-col1, col2, col3 = st.columns(3)
+with st.sidebar:
+    st.header("Filtros")
 
-with col1:
-    st.header("Titanic")
-    st.image("")
-with col2:
-    st.header("A dog")
-    st.image("https://static.streamlit.io/examples/dog.jpg")
+    # Filtro de edad
+    edad_min = int(df["Age"].min(skipna=True)) if df["Age"].notna().any() else 0
+    edad_max = int(df["Age"].max(skipna=True)) if df["Age"].notna().any() else 80
 
-with col3:
-    st.header("An owl")
-    st.image("https://static.streamlit.io/examples/owl.jpg")
+    rango_edad = st.slider(
+        "Rango de Edad",
+        min_value=edad_min,
+        max_value=edad_max,
+        value=(max(edad_min, 10), min(edad_max, 50))
+    )
+
+    # Filtro de tarifa
+    fare_min = float(df["Fare"].min())
+    fare_max = float(df["Fare"].max())
+
+    max_fare = st.slider(
+        "Fare máximo",
+        min_value=fare_min,
+        max_value=fare_max,
+        value=float(np.percentile(df["Fare"], 75))
+    )
+
+# Aplicamos filtros del sidebar a una copia
+df_filtrado = df.copy()
+df_filtrado = df_filtrado[
+    df_filtrado["Age"].between(rango_edad[0], rango_edad[1]) &
+    (df_filtrado["Fare"] <= max_fare)
+
+
+with st.container():
+    st.subheader("Resumen de datos filtrados")
+
+    col_a, col_b, col_c = st.columns(3)
+
+    with col_a:
+        st.metric("Pasajeros filtrados", len(df_filtrado))
+
+    with col_b:
+        if "Survived" in df_filtrado.columns and len(df_filtrado) > 0:
+            tasa = df_filtrado["Survived"].mean() * 100
+            st.metric("Supervivencia", f"{tasa:.1f} %")
+        else:
+            st.metric("Supervivencia", "N A")
+
+    with col_c:
+        if len(df_filtrado) > 0:
+            st.metric("Fare promedio", f"{df_filtrado['Fare'].mean():.2f}")
+        else:
+            st.metric("Fare promedio", "N A")
+
+
+
 
