@@ -17,7 +17,7 @@ with st.sidebar:
 
   st.write("Bins", div)
 
-fg, ax = plt.subplots(1, 2, figsze=(10, 3))
+fg, ax = plt.subplots(1, 2, figsize=(10, 3))
 ax[0].hist(df["Age"], bins=div)
 ax[0].set_xlabel("Edad")
 ax[0].set_ylabel("Frecuencia")
